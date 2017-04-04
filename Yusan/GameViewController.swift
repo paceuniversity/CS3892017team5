@@ -3,7 +3,7 @@
 //  Yusan
 //
 //  Created by Hayden McClure on 4/3/17.
-//  Copyright © 2017 CS 389 2017 Team 5. All rights reserved.
+//  Copyright © 2017 Pace CS 389 2017 Team 5. All rights reserved.
 //
 
 import UIKit

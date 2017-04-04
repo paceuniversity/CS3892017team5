@@ -48,6 +48,7 @@
 				54A64E0D1E931B9D00548C0C /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		54A64E0D1E931B9D00548C0C /* Products */ = {
 			isa = PBXGroup;
@@ -101,7 +102,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0830;
-				ORGANIZATIONNAME = "CS 389 2017 Team 5";
+				ORGANIZATIONNAME = "Pace CS 389 2017 Team 5";
 				TargetAttributes = {
 					54A64E0B1E931B9D00548C0C = {
 						CreatedOnToolsVersion = 8.3;
@@ -276,7 +277,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Yusan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = CS3892017Team5.Yusan;
+				PRODUCT_BUNDLE_IDENTIFIER = PaceCS3892017Team5.Yusan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -288,7 +289,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Yusan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = CS3892017Team5.Yusan;
+				PRODUCT_BUNDLE_IDENTIFIER = PaceCS3892017Team5.Yusan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
