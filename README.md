@@ -9,5 +9,5 @@ Kasey Carratala
 Hayden McClure
 Taline Torossian
 
-Our license is exclusive, these files are not to be copied or used without consulting the authors above.
+Our license is exclusive, these files are not to be distributed or used without consulting the authors above.
 Copyright 2017 All Rights Reserved
