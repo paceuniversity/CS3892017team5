@@ -13,14 +13,14 @@
         <scene sceneID="tXr-a1-R10">
             <objects>
                 <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="Yusan" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="8aa-yV-Osq"/>
-                        <viewControllerLayoutGuide type="bottom" id="qHh-Mt-9TT"/>
-                    </layoutGuides>
-                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
+                    <button key="view" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" id="iYT-aT-HLs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    </view>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <state key="normal" title="Back to Menu"/>
+                        <connections>
+                            <segue destination="Ew3-PI-dcf" kind="show" id="5UH-kd-Xfs"/>
+                        </connections>
+                    </button>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
@@ -52,6 +52,9 @@
                                 <rect key="frame" x="0.0" y="223" width="188" height="221"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Levels" image="Levels Button"/>
+                                <connections>
+                                    <segue destination="BV1-FR-VrT" kind="show" id="AID-4B-GoW"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="on6-lh-9no">
                                 <rect key="frame" x="188" y="223" width="187" height="221"/>
@@ -128,4 +131,7 @@
         <image name="SocialMediaButton" width="187" height="222"/>
         <image name="UmbrellaMan" width="238" height="340"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="5UH-kd-Xfs"/>
+    </inferredMetricsTieBreakers>
 </document>
