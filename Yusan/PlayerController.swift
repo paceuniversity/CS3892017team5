@@ -12,13 +12,13 @@ import SpriteKit
 class PlayerController: SKSpriteNode {
     
     
-    var currentMoveSpeed: Double!
+    var currentMoveSpeed: CGFloat!
     var playerSpeedX: CGFloat = 0.0
     var playerSpeedY: CGFloat = 0.0
-    var maxSpeed: CGFloat = 8
+    var maxSpeed: CGFloat = 12
     
-    var jumpHeight: CGFloat = 0
-    var maxJumpHeight: CGFloat = 25
+    var jumpHeight: CGFloat = 1
+    var maxJumpHeight: CGFloat = 50
 
 
     var isUsingUmbrella: Bool = false
@@ -56,17 +56,18 @@ class PlayerController: SKSpriteNode {
     }
     
     
-    //Player Speed
+    //PLAYER SPEED & DIRECTION
     
     func modXSpeedAndScale() {
-       
-        //PLAYER SPEED
+               
+        //Setting a max speed.
+        
         if (playerSpeedX > maxSpeed) {
             playerSpeedX = maxSpeed
         } else if (playerSpeedX < -maxSpeed) {
             playerSpeedX = -maxSpeed
         }
-        //PLAYER DIRECTION
+        // Flipping the sprite for left/right movement
         if (playerSpeedX > 0) {
             self.xScale = 1
         } else {
@@ -75,7 +76,7 @@ class PlayerController: SKSpriteNode {
     }
 
     func update() {
-        self.position = CGPoint.init(x: self.position.x + playerSpeedX, y: self.position.y + jumpHeight)
+        self.position = CGPoint.init(x: self.position.x + playerSpeedX, y: self.position.y + jumpHeight-1)
      
     }
     
@@ -137,7 +138,7 @@ class PlayerController: SKSpriteNode {
         jumpHeight = maxJumpHeight
             
         let callAgain:SKAction = SKAction.run {
-            self.taperSpeed()
+            self.taperJump()
         }
         let wait:SKAction = SKAction.wait(forDuration: 1/60)
         let seq:SKAction = SKAction.sequence([wait, callAgain])
@@ -169,7 +170,6 @@ class PlayerController: SKSpriteNode {
         
         if (isJumping == true) {
             stopJump()
-            
             
         }
         

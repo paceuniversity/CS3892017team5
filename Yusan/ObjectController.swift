@@ -17,9 +17,15 @@ class ObjectController: SKNode {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //INITIALIZE
+    
     init(theDict:Dictionary<String, String>) {
         super.init()
     
+        
+    //LOG THE FORMAT OF DICT
+        
         print(theDict)
         let location: CGPoint = CGPointFromString(theDict["Location"]!)
         
@@ -27,6 +33,7 @@ class ObjectController: SKNode {
         
         let amount: Int! = Int(theDict["PlaceMultiplesOnX"]!)
         
+    //CREATE CHILD OBJECTS OF TYPE SPECIFIED IN DICT
         
         for i in stride(from: 0, to: amount, by: 1){
             

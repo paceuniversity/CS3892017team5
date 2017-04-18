@@ -17,7 +17,6 @@
 		54A64E201E931B9D00548C0C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54A64E1E1E931B9D00548C0C /* LaunchScreen.storyboard */; };
 		943696111E95E45F005AC97D /* PlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943696101E95E45F005AC97D /* PlayerController.swift */; };
 		943696131E9B1FAB005AC97D /* ObjectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943696121E9B1FAB005AC97D /* ObjectController.swift */; };
-		943696151E9BDD85005AC97D /* PanningController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943696141E9BDD85005AC97D /* PanningController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +32,6 @@
 		54A64E211E931B9D00548C0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		943696101E95E45F005AC97D /* PlayerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerController.swift; sourceTree = "<group>"; };
 		943696121E9B1FAB005AC97D /* ObjectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectController.swift; sourceTree = "<group>"; };
-		943696141E9BDD85005AC97D /* PanningController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanningController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +66,6 @@
 			isa = PBXGroup;
 			children = (
 				943696121E9B1FAB005AC97D /* ObjectController.swift */,
-				943696141E9BDD85005AC97D /* PanningController.swift */,
 				54A64E0F1E931B9D00548C0C /* AppDelegate.swift */,
 				54A64E111E931B9D00548C0C /* GameScene.sks */,
 				54A64E131E931B9D00548C0C /* Actions.sks */,
@@ -159,7 +156,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				54A64E161E931B9D00548C0C /* GameScene.swift in Sources */,
-				943696151E9BDD85005AC97D /* PanningController.swift in Sources */,
 				54A64E181E931B9D00548C0C /* GameViewController.swift in Sources */,
 				943696111E95E45F005AC97D /* PlayerController.swift in Sources */,
 				943696131E9B1FAB005AC97D /* ObjectController.swift in Sources */,
