@@ -18,9 +18,10 @@ class PlayerController: SKSpriteNode {
     var maxSpeed: CGFloat = 12
     
     var jumpHeight: CGFloat = 1
-    var maxJumpHeight: CGFloat = 50
+    var maxJumpHeight: CGFloat = 65
     
     var jumpMultiplier: CGFloat = 2
+    var jumpBase: CGFloat = 1
 
 
     var isUsingUmbrella: Bool = false
@@ -84,6 +85,17 @@ class PlayerController: SKSpriteNode {
     
     func startRun() {
         self.run(runAction!)
+        
+    }
+    
+    func jumpNoGrav() {
+        let jumpUp: SKAction = SKAction.moveBy(x: 0, y: jumpBase * jumpMultiplier, duration: 0.2)
+        
+        
+        
+        
+        
+        
         
     }
     

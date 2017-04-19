@@ -53,8 +53,9 @@ class ObjectController: SKNode {
             }
             
             let objectSprite: SKSpriteNode = SKSpriteNode(texture: nil, color: UIColor.black, size: CGSize.init(width: 160, height: 40))
+            objectSprite.alpha = 0.7
             self.addChild(objectSprite)
-            objectSprite.position = CGPoint.init(x: objectSprite.size.width * CGFloat(i) * spacing, y: 180*spacing)
+            objectSprite.position = CGPoint.init(x: objectSprite.size.width * CGFloat(i) * spacing, y: 150*spacing)
             
             if (theDict["BodyType"] == "square") {
                 objectSprite.physicsBody = SKPhysicsBody(rectangleOf: objectSprite.size)

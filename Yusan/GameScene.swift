@@ -23,8 +23,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     var cam:SKCameraNode!
     let worldNode: SKNode = SKNode()
+    let bg = SKSpriteNode.init(imageNamed: "Yusan_Background")
+    let water = SKSpriteNode.init(imageNamed: "Water")
+
     
-    var originNode: SKNode = SKSpriteNode(texture: nil, color: UIColor.blue, size: CGSize.init(width: 10, height: 10))
+    
+    var originNode: SKNode = SKSpriteNode(texture: nil, color: UIColor.clear, size: CGSize.init(width: 10, height: 10))
     var origin: CGPoint!
     var playerChar: PlayerController!
     var playerCurrentPos: CGPoint!
@@ -55,9 +59,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         
         physicsWorld.contactDelegate = self
-        backgroundColor = SKColor.yellow
+        backgroundColor = SKColor.darkGray
         anchorPoint = CGPoint.init(x: 0.5, y: 0.5)
+        bg.position = CGPoint.init(x: 0, y: 280)
+        bg.setScale(1.5)
+//        bg.yScale = 1.5
+        addChild(bg)
+        bg.zPosition = -10
+//        bg.alpha = 1.0
+       
+        water.yScale = 0.4
+        water.position = CGPoint.init(x: 0, y: -water.size.height*3/4)
+        addChild(water)
+        water.zPosition = -9
+//        water.alpha = 0.9
         
+        let wave1: SKAction = SKAction.moveBy(x: 0, y: 18, duration: 5)
+            wave1.timingMode = .easeInEaseOut
+        let wave2: SKAction = SKAction.moveBy(x: 0, y: -18, duration: 6)
+            wave2.timingMode = .easeInEaseOut
+        let wave: SKAction = SKAction.sequence([wave1, wave2])
+        let waveForever: SKAction = SKAction.repeatForever(wave)
+
+        water.run(waveForever)
         
         cam = SKCameraNode()
         self.camera = cam
@@ -85,13 +109,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         dStickBase = SKSpriteNode(texture: nil, color: UIColor.gray, size: CGSize.init(width: 50, height: 50))
         dStickCirc = SKSpriteNode(texture: nil, color: UIColor.lightGray, size: CGSize.init(width: 30, height: 30))
-        movementPane = SKSpriteNode(texture: nil, color: UIColor.white, size: CGSize.init(width: view.frame.width, height: view.frame.height))
+        movementPane = SKSpriteNode(texture: nil, color: UIColor.clear, size: CGSize.init(width: view.frame.width, height: view.frame.height))
         
         //PANNING
         
         
-        panningPanLeft = SKSpriteNode(texture: nil, color: UIColor.darkGray, size: CGSize.init(width: view.frame.width*2/3, height: view.frame.height*2))
-        panningPanRight = SKSpriteNode(texture: nil, color: UIColor.darkGray, size: CGSize.init(width: view.frame.width*2/3, height: view.frame.height*2))
+        panningPanLeft = SKSpriteNode(texture: nil, color: UIColor.clear, size: CGSize.init(width: view.frame.width*2/3, height: view.frame.height*2))
+        panningPanRight = SKSpriteNode(texture: nil, color: UIColor.clear, size: CGSize.init(width: view.frame.width*2/3, height: view.frame.height*2))
 //        stationaryPane = SKSpriteNode(texture: nil, color: UIColor.lightGray, size: CGSize.init(width: view.frame.width*3/7, height: view.frame.height*2/3))
         
         
@@ -117,7 +141,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         jumpBuBase = SKSpriteNode(texture: nil, color: UIColor.gray, size: dStickBase.size)
         jumpButton = SKSpriteNode(texture: nil, color: UIColor.lightGray, size: dStickCirc.size)
-        jumpingPane = SKSpriteNode(texture: nil, color: UIColor.white, size: CGSize.init(width: view.frame.width, height: view.frame.height))
+        jumpingPane = SKSpriteNode(texture: nil, color: UIColor.clear, size: CGSize.init(width: view.frame.width, height: view.frame.height))
 
         
         
@@ -171,7 +195,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //STARTINGGROUND
         
-        var startingGroundData: [String:String] = ["BodyType": "square", "Location": "{-900, -150}", "PlaceMultiplesOnX": "45", "Spacing": "0"]
+        var startingGroundData: [String:String] = ["BodyType": "square", "Location": "{-2000, -700}", "PlaceMultiplesOnX": "100", "Spacing": "0"]
         
         var startingGround = ObjectController(theDict: startingGroundData)
         worldNode.addChild(startingGround)
@@ -180,8 +204,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //PLATFORM
         
-        var platformData: [String:String] = ["BodyType": "square", "Location": "{-300, 180}", "PlaceMultiplesOnX": "1", "Spacing": "0"]
-        var platform2Data: [String:String] = ["BodyType": "square", "Location": "{0, 0}", "PlaceMultiplesOnX": "20", "Spacing": "1"]
+        var platformData: [String:String] = ["BodyType": "square", "Location": "{-300, -550}", "PlaceMultiplesOnX": "1", "Spacing": "0"]
+        var platform2Data: [String:String] = ["BodyType": "square", "Location": "{0, -550}", "PlaceMultiplesOnX": "30", "Spacing": "1"]
 
 
         
@@ -416,6 +440,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
   //Don't let the world offset be greater than the node offset!!
         let moveWorld:SKAction = SKAction.moveBy(x: offset.x/22, y: offset.y/40, duration: 0.2)
+        let moveBackGround:SKAction = SKAction.moveBy(x: offset.x/200, y: offset.y/200, duration: 0.2)
+        let moveWater:SKAction = SKAction.moveBy(x: offset.x/100, y: offset.y/190, duration: 0.2)
+        
+
+
 
 
 //        let moveWorld2:SKAction = SKAction.moveBy(x: -playerChar.playerSpeedX, y: offset.y/20, duration: 0.2)
@@ -443,7 +472,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             worldNode.run(moveWorld)
 //          cam.run(movecam)
             originNode.run(moveNode)
-        
+            bg.run(moveBackGround)
+            water.run(moveWater)
 /*          } else {
                 print("too far")
                 
@@ -494,6 +524,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //
 //            }
             self.moveWorld()
+            
  
         }
         
