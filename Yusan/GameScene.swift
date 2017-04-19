@@ -511,7 +511,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //            } else {
 //                print(offset)
 //                print("origin: ", origin)
-                print("playerpos: ", playerCurrentPos)
+//                print("playerpos: ", playerCurrentPos)
 //                print("worldpos: ", worldNode.position)
 //                print("campos: ", cam.position)
 //                print(playerChar.playerSpeedX)
