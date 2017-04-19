@@ -102,7 +102,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //CHARACTER
         
         playerChar = PlayerController()
-        playerChar.position = CGPoint.init(x: 10, y: 50)
+        playerChar.position = CGPoint.init(x: -1330, y: 0)
         
         
         //DSTICK
@@ -205,7 +205,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //PLATFORM
         
         var platformData: [String:String] = ["BodyType": "square", "Location": "{-300, -550}", "PlaceMultiplesOnX": "1", "Spacing": "0"]
-        var platform2Data: [String:String] = ["BodyType": "square", "Location": "{0, -550}", "PlaceMultiplesOnX": "30", "Spacing": "1"]
+        var platform2Data: [String:String] = ["BodyType": "square", "Location": "{-1000, -550}", "PlaceMultiplesOnX": "30", "Spacing": "1"]
 
 
         
@@ -511,7 +511,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //            } else {
 //                print(offset)
 //                print("origin: ", origin)
-//                print("playerpos: ", playerCurrentPos)
+                print("playerpos: ", playerCurrentPos)
 //                print("worldpos: ", worldNode.position)
 //                print("campos: ", cam.position)
 //                print(playerChar.playerSpeedX)
