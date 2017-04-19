@@ -19,6 +19,8 @@ class PlayerController: SKSpriteNode {
     
     var jumpHeight: CGFloat = 1
     var maxJumpHeight: CGFloat = 50
+    
+    var jumpMultiplier: CGFloat = 2
 
 
     var isUsingUmbrella: Bool = false

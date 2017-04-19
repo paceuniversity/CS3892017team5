@@ -32,14 +32,29 @@ class ObjectController: SKNode {
         self.position = location
         
         let amount: Int! = Int(theDict["PlaceMultiplesOnX"]!)
+//        let spacing: Int! = Int(theDict["Spacing"]!)
+        let randomSpacing: Int! = Int(theDict["Spacing"]!)
+        var spacing: CGFloat = 1
+        
+        
+        
+
+
+//        let randomHeight: CGFloat = CGFloat(arc4random_uniform(4))
         
     //CREATE CHILD OBJECTS OF TYPE SPECIFIED IN DICT
         
         for i in stride(from: 0, to: amount, by: 1){
             
+            if (randomSpacing == 1) {
+               spacing = CGFloat(arc4random_uniform(2)) + 1
+                print (spacing)
+                
+            }
+            
             let objectSprite: SKSpriteNode = SKSpriteNode(texture: nil, color: UIColor.black, size: CGSize.init(width: 160, height: 40))
             self.addChild(objectSprite)
-            objectSprite.position = CGPoint.init(x: objectSprite.size.width * CGFloat(i), y: 0)
+            objectSprite.position = CGPoint.init(x: objectSprite.size.width * CGFloat(i) * spacing, y: 180*spacing)
             
             if (theDict["BodyType"] == "square") {
                 objectSprite.physicsBody = SKPhysicsBody(rectangleOf: objectSprite.size)
@@ -47,6 +62,9 @@ class ObjectController: SKNode {
                 objectSprite.physicsBody!.isDynamic = false
                 objectSprite.physicsBody!.categoryBitMask = BodyType.ground.rawValue
                 objectSprite.physicsBody!.restitution = 0
+                
+                print(randomSpacing)
+
                 
             }
         }

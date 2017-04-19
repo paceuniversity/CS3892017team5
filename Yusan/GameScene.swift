@@ -171,7 +171,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //STARTINGGROUND
         
-        var startingGroundData: [String:String] = ["BodyType": "square", "Location": "{-900, -150}", "PlaceMultiplesOnX": "45"]
+        var startingGroundData: [String:String] = ["BodyType": "square", "Location": "{-900, -150}", "PlaceMultiplesOnX": "45", "Spacing": "0"]
         
         var startingGround = ObjectController(theDict: startingGroundData)
         worldNode.addChild(startingGround)
@@ -180,8 +180,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //PLATFORM
         
-        var platformData: [String:String] = ["BodyType": "square", "Location": "{0, 30}", "PlaceMultiplesOnX": "4"]
-        var platform2Data: [String:String] = ["BodyType": "square", "Location": "{0, 210}", "PlaceMultiplesOnX": "2"]
+        var platformData: [String:String] = ["BodyType": "square", "Location": "{-300, 180}", "PlaceMultiplesOnX": "1", "Spacing": "0"]
+        var platform2Data: [String:String] = ["BodyType": "square", "Location": "{0, 0}", "PlaceMultiplesOnX": "20", "Spacing": "1"]
 
 
         
