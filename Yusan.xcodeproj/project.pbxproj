@@ -16,6 +16,7 @@
 		54A64E1D1E931B9D00548C0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54A64E1C1E931B9D00548C0C /* Assets.xcassets */; };
 		54A64E201E931B9D00548C0C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54A64E1E1E931B9D00548C0C /* LaunchScreen.storyboard */; };
 		943696111E95E45F005AC97D /* PlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943696101E95E45F005AC97D /* PlayerController.swift */; };
+		943696131E9B1FAB005AC97D /* ObjectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943696121E9B1FAB005AC97D /* ObjectController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		54A64E1F1E931B9D00548C0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		54A64E211E931B9D00548C0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		943696101E95E45F005AC97D /* PlayerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerController.swift; sourceTree = "<group>"; };
+		943696121E9B1FAB005AC97D /* ObjectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 		54A64E0E1E931B9D00548C0C /* Yusan */ = {
 			isa = PBXGroup;
 			children = (
+				943696121E9B1FAB005AC97D /* ObjectController.swift */,
 				54A64E0F1E931B9D00548C0C /* AppDelegate.swift */,
 				54A64E111E931B9D00548C0C /* GameScene.sks */,
 				54A64E131E931B9D00548C0C /* Actions.sks */,
@@ -155,6 +158,7 @@
 				54A64E161E931B9D00548C0C /* GameScene.swift in Sources */,
 				54A64E181E931B9D00548C0C /* GameViewController.swift in Sources */,
 				943696111E95E45F005AC97D /* PlayerController.swift in Sources */,
+				943696131E9B1FAB005AC97D /* ObjectController.swift in Sources */,
 				54A64E101E931B9D00548C0C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
