@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "SocialMedia.png",
+      "filename" : "CharacterButton.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "CharacterButton-1.png",
       "scale" : "2x"
     },
     {
