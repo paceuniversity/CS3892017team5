@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Character Button.png",
+      "filename" : "Historybutton.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Historybutton-1.png",
       "scale" : "2x"
     },
     {
