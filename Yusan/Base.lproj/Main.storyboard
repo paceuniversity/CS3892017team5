@@ -39,7 +39,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YOU-Mx-ehi">
-                                <rect key="frame" x="0.0" y="0.0" width="188" height="221"/>
+                                <rect key="frame" x="4" y="223" width="181" height="221"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration" identifier="Play Button">
                                     <accessibilityTraits key="traits" button="YES"/>
@@ -52,27 +52,17 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q6C-bc-HDI">
-                                <rect key="frame" x="187" y="223" width="188" height="221"/>
+                                <rect key="frame" x="190" y="223" width="182" height="221"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration" identifier="Extra Button">
                                     <accessibilityTraits key="traits" button="YES"/>
                                 </accessibility>
-                                <state key="normal" image="ExtraButton">
+                                <state key="normal" image="HistoryButton">
                                     <color key="titleColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H4w-4F-1oE">
-                                <rect key="frame" x="187" y="446" width="188" height="221"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration" identifier="Extra Button">
-                                    <accessibilityTraits key="traits" button="YES"/>
-                                </accessibility>
-                                <state key="normal" image="ExtraButton">
-                                    <color key="titleColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4hP-Pu-bR6">
-                                <rect key="frame" x="0.0" y="446" width="188" height="221"/>
+                                <rect key="frame" x="190" y="446" width="182" height="221"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration" identifier="Extra Button">
                                     <accessibilityTraits key="traits" button="YES"/>
@@ -81,8 +71,8 @@
                                     <color key="titleColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1OL-MV-LmL">
-                                <rect key="frame" x="187" y="0.0" width="188" height="221"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4hP-Pu-bR6">
+                                <rect key="frame" x="5" y="446" width="180" height="221"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration" identifier="Extra Button">
                                     <accessibilityTraits key="traits" button="YES"/>
@@ -92,17 +82,27 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awc-EF-53f">
-                                <rect key="frame" x="0.0" y="223" width="188" height="221"/>
+                                <rect key="frame" x="5" y="0.0" width="180" height="221"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration" identifier="Extra Button">
                                     <accessibilityTraits key="traits" button="YES"/>
                                 </accessibility>
-                                <state key="normal" image="ExtraButton">
+                                <state key="normal" image="CharacterButton">
+                                    <color key="titleColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1OL-MV-LmL">
+                                <rect key="frame" x="190" y="0.0" width="182" height="221"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Extra Button">
+                                    <accessibilityTraits key="traits" button="YES"/>
+                                </accessibility>
+                                <state key="normal" image="SocialMediaButton">
                                     <color key="titleColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jHA-Yw-mfd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -153,9 +153,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="CharacterButton" width="180" height="320"/>
         <image name="ExtraButton" width="180" height="320"/>
+        <image name="HistoryButton" width="180" height="320"/>
         <image name="PlayButton" width="180" height="320"/>
         <image name="SettingsButton" width="180" height="320"/>
+        <image name="SocialMediaButton" width="180" height="320"/>
         <image name="UmbrellaMan" width="238" height="340"/>
     </resources>
 </document>
