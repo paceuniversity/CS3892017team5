@@ -14,17 +14,21 @@ enum BodyType:UInt32 {
     case player = 1
     case ground = 2
     case platform = 4
-    case panLeft = 8
-    case panRight = 16
+    case npc = 8
+    case gameOver = 10
+    case police = 14
 }
+
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
 
     var cam:SKCameraNode!
     let worldNode: SKNode = SKNode()
-    let bg = SKSpriteNode.init(imageNamed: "Yusan_Background")
+    let bg = SKSpriteNode.init(imageNamed: "Yusan_Background1")
     let water = SKSpriteNode.init(imageNamed: "Water")
+    var npc: ObjectController!
+    var dialogue: SKSpriteNode!
 
     
     
@@ -35,11 +39,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var offset: CGPoint!
     
     var ground: SKSpriteNode!
+   // var building: SKSpriteNode!
     var dStickBase: SKSpriteNode!
     var dStickCirc: SKSpriteNode!
     var movementPane: SKSpriteNode!
     var panningPanRight: SKSpriteNode!
     var panningPanLeft: SKSpriteNode!
+    var gameOverNode: SKSpriteNode!
+    
     var jumpingPane: SKSpriteNode!
     var stationaryPane: SKSpriteNode!
     var jumpBuBase: SKSpriteNode!
@@ -49,9 +56,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var jumping: Bool = false
     var panning: Bool = false
     
-   
+    var pauseButton = SKSpriteNode.init(color: UIColor.black, size: CGSize.init(width: 80, height: 80))
+    var resumeButton = SKSpriteNode.init(color: UIColor.black, size: CGSize.init(width: 350, height: 80))
+    var resumeLabel = SKLabelNode(fontNamed: "Chalkduster")
 
     
+   
+
     
     
     
@@ -61,15 +72,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         backgroundColor = SKColor.darkGray
         anchorPoint = CGPoint.init(x: 0.5, y: 0.5)
-        bg.position = CGPoint.init(x: 0, y: 280)
-        bg.setScale(1.5)
+        //Was 60
+        bg.position = CGPoint.init(x: 0, y: 160)
+        bg.setScale(1.2)
 //        bg.yScale = 1.5
         addChild(bg)
         bg.zPosition = -10
 //        bg.alpha = 1.0
        
         water.yScale = 0.4
-        water.position = CGPoint.init(x: 0, y: -water.size.height*3/4)
+        
+        //Was - 75
+        water.position = CGPoint.init(x: 0, y: -water.size.height*3/4 - 20)
         addChild(water)
         water.zPosition = -9
 //        water.alpha = 0.9
@@ -88,6 +102,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(cam)
         cam.position = CGPoint(x: 0, y: 0)
         
+        self.physicsWorld.gravity = CGVector.init(dx: 0.0, dy: -4.0)
+        
         
         
         //WORLD NODE
@@ -102,7 +118,50 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //CHARACTER
         
         playerChar = PlayerController()
-        playerChar.position = CGPoint.init(x: -1330, y: 0)
+        playerChar.position = CGPoint.init(x: -2850, y: 400)
+        
+        
+        //DEAD
+        
+        var deadData: [String:String] = ["BodyType": "gameOver", "Location": "{-2500, -5000}", "PlaceMultiplesOnX": "10", "Spacing": "0"]
+
+       // let gameOver = ObjectController(theDict: deadData)
+       // addChild(gameOver)
+        
+        
+        gameOverNode = SKSpriteNode.init(texture: nil, color: SKColor.clear, size: CGSize.init(width: 600, height: 50))
+        gameOverNode.position = CGPoint.init(x: -3000, y: -1500)
+        gameOverNode.physicsBody = SKPhysicsBody(rectangleOf: gameOverNode.size)
+        gameOverNode.physicsBody!.isDynamic = false
+        gameOverNode.physicsBody!.collisionBitMask = 1
+        gameOverNode.physicsBody!.categoryBitMask = BodyType.gameOver.rawValue
+        worldNode.addChild(gameOverNode)
+        
+        
+        //PAUSE/RESUME
+        pauseButton.position = CGPoint(x: -view.bounds.maxX + pauseButton.size.width/2 + 7, y:view.bounds.maxY - pauseButton.size.height/2 - 7)
+        pauseButton.name = "pauseButton"
+        pauseButton.alpha = 0.3
+        addChild(pauseButton)
+        
+        resumeButton.position = CGPoint(x: 0, y: 0)
+        resumeButton.name = "resumeButton"
+        resumeButton.isHidden = true
+        resumeButton.alpha = 0.8
+        addChild(resumeButton)
+        
+        resumeLabel.text = "Resume"
+        resumeLabel.fontSize = 30
+        resumeLabel.position = resumeButton.position
+        resumeLabel.isHidden = true
+        addChild(resumeLabel)
+        
+        
+        
+        
+        
+        
+        
         
         
         //DSTICK
@@ -110,6 +169,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         dStickBase = SKSpriteNode(texture: nil, color: UIColor.gray, size: CGSize.init(width: 50, height: 50))
         dStickCirc = SKSpriteNode(texture: nil, color: UIColor.lightGray, size: CGSize.init(width: 30, height: 30))
         movementPane = SKSpriteNode(texture: nil, color: UIColor.clear, size: CGSize.init(width: view.frame.width, height: view.frame.height))
+        
+        
+        
+        //BUILDINGS
+        
         
         //PANNING
         
@@ -195,7 +259,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //STARTINGGROUND
         
-        var startingGroundData: [String:String] = ["BodyType": "square", "Location": "{-2000, -700}", "PlaceMultiplesOnX": "100", "Spacing": "0"]
+        var startingGroundData: [String:String] = ["BodyType": "ground", "Location": "{-3500, -700}", "PlaceMultiplesOnX": "32", "Spacing": "0"]
         
         var startingGround = ObjectController(theDict: startingGroundData)
         worldNode.addChild(startingGround)
@@ -204,22 +268,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //PLATFORM
         
-        var platformData: [String:String] = ["BodyType": "square", "Location": "{-300, -550}", "PlaceMultiplesOnX": "1", "Spacing": "0"]
-        var platform2Data: [String:String] = ["BodyType": "square", "Location": "{-1000, -550}", "PlaceMultiplesOnX": "30", "Spacing": "1"]
-
-
+      //  var platformData: [String:String] = ["BodyType": "platform", "Location": "{-300, -550}", "PlaceMultiplesOnX": "1", "Spacing": "0"]
+        var platform2Data: [String:String] = ["BodyType": "platform", "Location": "{-3000, -550}", "PlaceMultiplesOnX": "100", "Spacing": "1"]
         
-        let platform = ObjectController(theDict: platformData)
-        worldNode.addChild(platform)
-        platform.zPosition = 0
+        
+      //  let platform = ObjectController(theDict: platformData)
+      //  worldNode.addChild(platform)
+      //  platform.zPosition = 0
         
         let platform2 = ObjectController(theDict: platform2Data)
         worldNode.addChild(platform2)
         platform2.zPosition = 0
 
-            
         
-        var panLeftData: [String:String] = ["Bodytype": "panleft"]
+        
+        //NPCS
+        
+     //   var npcData: [String:String] = ["BodyType": "npc", "Location": "{-1800, -640}", "PlaceMultiplesOnX": "1", "Spacing": "0"]
+        
+ //       npc = ObjectController(theDict: npcData)
+ //       worldNode.addChild(npc)
+ //       npc.zPosition = 0
+        
+        
+        //BUILDINGS
+        
+        var buildingData: [String:String] = ["BodyType": "building", "Location": "{-3375, -400}", "PlaceMultiplesOnX": "3", "Spacing": "0"]
+        let building = ObjectController(theDict: buildingData)
+        worldNode.addChild(building)
+        building.zPosition = 0
+        
+        
+        var buildingData2: [String:String] = ["BodyType": "building", "Location": "{-3375, 300}", "PlaceMultiplesOnX": "2", "Spacing": "0"]
+        let building2 = ObjectController(theDict: buildingData2)
+        worldNode.addChild(building2)
+        building2.zPosition = 0
         
         
         //GROUND
@@ -300,6 +383,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
             }
             
+            //PAUSE
+          
+            if (pauseButton.frame.contains(location)){
+                
+                resumeButton.isHidden = false
+                resumeLabel.isHidden = false
+                dStickBase.isHidden = true
+                dStickCirc.isHidden = true
+                jumpBuBase.isHidden = true
+                jumpButton.isHidden = true
+                self.isPaused = true
+            }
+            //RESUME BUTTON
+            if (resumeButton.frame.contains(location)){
+                resumeLabel.isHidden = true
+                resumeButton.isHidden = true
+                dStickBase.isHidden = false
+                dStickCirc.isHidden = false
+                jumpBuBase.isHidden = false
+                jumpButton.isHidden = false
+                
+                self.isPaused = false
+
+            
+            
+            }
+            
+            
             
             //JUMP BUTTON
             
@@ -321,10 +432,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     jumpButton.run(fadeInStick)
                 }
                 
+                if (playerChar.isJumping == false) {
                 playerChar.jump()
+//                playerChar.isJumping = false
+                    
+                }
         
             } else {
-                jumping = false
+// do nothing
             }
         }
     }
@@ -442,6 +557,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let moveWorld:SKAction = SKAction.moveBy(x: offset.x/22, y: offset.y/40, duration: 0.2)
         let moveBackGround:SKAction = SKAction.moveBy(x: offset.x/200, y: offset.y/200, duration: 0.2)
         let moveWater:SKAction = SKAction.moveBy(x: offset.x/100, y: offset.y/190, duration: 0.2)
+        let moveDeadNode: SKAction = SKAction.moveTo(x: playerCurrentPos.x, duration: 0.2)
         
 
 
@@ -474,6 +590,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             originNode.run(moveNode)
             bg.run(moveBackGround)
             water.run(moveWater)
+            gameOverNode.run(moveDeadNode)
+        
+        
+        
+        
+        
+        
+        
 /*          } else {
                 print("too far")
                 
@@ -516,7 +640,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //                print("campos: ", cam.position)
 //                print(playerChar.playerSpeedX)
 //                print(playerChar.playerSpeedY)
-//
+//                  print(playerChar.isJumping)
 //
 //
 //                print("panepos: ", stationaryPane.position)
@@ -532,13 +656,48 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func didBegin(_ contact: SKPhysicsContact) {
         
+        
+//  CONTACT WITH GROUND
+        
+        if (contact.bodyA.categoryBitMask == BodyType.player.rawValue && contact.bodyB.categoryBitMask == BodyType.platform.rawValue) {
+            
+            //print("bodyA was out player and bodyB was the ground")
+            
+            if let character = contact.bodyA.node as? PlayerController {
+                
+                character.stopJumpFromPlatform()
+                print("hitsomething")
+
+                
+            }
+        } else if (contact.bodyB.categoryBitMask == BodyType.player.rawValue && contact.bodyA.categoryBitMask == BodyType.platform.rawValue) {
+            
+            //print("bodyB was out player and bodyA was the ground")
+            
+            if let character = contact.bodyB.node as? PlayerController {
+                
+                character.stopJumpFromPlatform()
+                print("hitsomething")
+                
+                
+        
+                
+            }
+        }
+        
+        
+        
+        
+        //CONTACT WITH PLATFORM
+        
         if (contact.bodyA.categoryBitMask == BodyType.player.rawValue && contact.bodyB.categoryBitMask == BodyType.ground.rawValue) {
             
             //print("bodyA was out player and bodyB was the ground")
             
             if let character = contact.bodyA.node as? PlayerController {
                 
-               character.stopJumpFromPlatform()
+                character.isJumping = false
+                print("grounded")
                 
                 
             }
@@ -548,17 +707,160 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             if let character = contact.bodyB.node as? PlayerController {
                 
-                character.stopJumpFromPlatform()
+                character.isJumping = false
+                print("grounded")
+
                 
-                
-                
-        
                 
             }
         }
+        
+        
+        //CONTACT WITH DEAD NODE
+        
+        if (contact.bodyA.categoryBitMask == BodyType.player.rawValue && contact.bodyB.categoryBitMask == BodyType.gameOver.rawValue) {
+            
+            print("player is dead")
+            
+            let gameOverS = GameOverScene(fileNamed: "GameOverScene")
+            gameOverS?.scaleMode = .aspectFill
+            self.view?.presentScene(gameOverS!, transition: SKTransition.fade(withDuration: 0.5))
+                
+                
+            
+        } else if (contact.bodyB.categoryBitMask == BodyType.player.rawValue && contact.bodyA.categoryBitMask == BodyType.gameOver.rawValue) {
+            
+            print("player is dead")
+            
+            let gameOverS = GameOverScene(fileNamed: "GameOverScene")
+            gameOverS?.scaleMode = .aspectFill
+            self.view?.presentScene(gameOverS!, transition: SKTransition.fade(withDuration: 0.5))
+    
+                
+            
+        }
+        
+        
+        
+        //CONTACT WITH POLICE
+        
+        if (contact.bodyA.categoryBitMask == BodyType.player.rawValue && contact.bodyB.categoryBitMask == BodyType.police.rawValue) {
+            
+            //print("player is dead")
+            
+            playerChar.run(SKAction.applyForce(CGVector.init(dx: -400, dy: 120), duration: 0.1))
+            print("push")
+            
+            
+            
+        } else if (contact.bodyB.categoryBitMask == BodyType.player.rawValue && contact.bodyA.categoryBitMask == BodyType.police.rawValue) {
+            
+           // print("player is dead")
+            
+            playerChar.run(SKAction.applyForce(CGVector.init(dx: -400, dy: 120), duration: 0.1))
+            print("push")
+
+            
+            
+            
+        }
+        
+        
+        
+        
+        //CONTACT WITH NPC
+        
+        if (contact.bodyA.categoryBitMask == BodyType.player.rawValue && contact.bodyB.categoryBitMask == BodyType.npc.rawValue) {
+            
+            //print("bodyA was out player and bodyB was the ground")
+
+                print("npc found")
+    
+            dialogue = SKSpriteNode.init(texture: nil, color: SKColor.black, size: CGSize.init(width: 800, height: 320))
+            addChild(dialogue)
+            dialogue.position = CGPoint.init(x: 0, y: (view?.frame.maxY)! - dialogue.size.height/2 - 10)
+            dialogue.alpha = 0.7
+            
+            let wait:SKAction = SKAction.wait(forDuration: 10)
+            let rem: SKAction = SKAction.removeFromParent()
+            let remseq: SKAction = SKAction.sequence([wait, rem])
+            
+            dialogue.run(remseq)
+            
+            
+            
+        } else if (contact.bodyB.categoryBitMask == BodyType.player.rawValue && contact.bodyA.categoryBitMask == BodyType.npc.rawValue) {
+            
+            //print("bodyB was out player and bodyA was the ground")
+    
+                print("npc found")
+            
+            dialogue = SKSpriteNode.init(texture: nil, color: SKColor.black, size: CGSize.init(width: 800, height: 320))
+            addChild(dialogue)
+            dialogue.position = CGPoint.init(x: 0, y: (view?.frame.maxY)! - dialogue.size.height/2 - 10)
+            dialogue.alpha = 0.7
+
+            let wait:SKAction = SKAction.wait(forDuration: 10)
+            let rem: SKAction = SKAction.removeFromParent()
+            let remseq: SKAction = SKAction.sequence([wait, rem])
+            
+            dialogue.run(remseq)
+                
+                
+                
+            
+        }
+        
     
 
         
         
     }
+    
+    
+    func didEnd(_ contact: SKPhysicsContact) {
+        
+        
+        
+        if (contact.bodyA.categoryBitMask == BodyType.player.rawValue && contact.bodyB.categoryBitMask == BodyType.npc.rawValue) {
+            
+            //print("bodyA was out player and bodyB was the ground")
+            
+            print("npc lost")
+            dialogue.removeFromParent()
+            
+            
+            
+            
+            
+            
+        } else if (contact.bodyB.categoryBitMask == BodyType.player.rawValue && contact.bodyA.categoryBitMask == BodyType.npc.rawValue) {
+            
+            //print("bodyB was out player and bodyA was the ground")
+            
+            print("npc lost")
+            dialogue.removeFromParent()
+
+   
+            
+            
+            
+            
+        }
+    
+    
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
