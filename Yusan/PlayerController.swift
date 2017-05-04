@@ -18,7 +18,7 @@ class PlayerController: SKSpriteNode {
     var maxSpeed: CGFloat = 12
     
     var jumpHeight: CGFloat = 1
-    var maxJumpHeight: CGFloat = 65
+    var maxJumpHeight: CGFloat = 70
     
     var jumpMultiplier: CGFloat = 2
     var jumpBase: CGFloat = 1
@@ -44,10 +44,14 @@ class PlayerController: SKSpriteNode {
         body.allowsRotation = false
         
         body.categoryBitMask = BodyType.player.rawValue
+        body.collisionBitMask = BodyType.ground.rawValue | BodyType.platform.rawValue | BodyType.gameOver.rawValue
         
         body.contactTestBitMask = BodyType.ground.rawValue
-        body.contactTestBitMask = BodyType.panLeft.rawValue
-        body.contactTestBitMask = BodyType.panRight.rawValue
+        body.contactTestBitMask = BodyType.platform.rawValue
+        body.contactTestBitMask = BodyType.npc.rawValue
+        body.contactTestBitMask = BodyType.gameOver.rawValue
+        body.contactTestBitMask = BodyType.police.rawValue
+
         
         body.restitution = 0
         
@@ -89,10 +93,18 @@ class PlayerController: SKSpriteNode {
     }
     
     func jumpNoGrav() {
+        
         let jumpUp: SKAction = SKAction.moveBy(x: 0, y: jumpBase * jumpMultiplier, duration: 0.2)
+        let callAgain:SKAction = SKAction.run {
+            self.taperJump()
+        }
+        let wait:SKAction = SKAction.wait(forDuration: 1/60)
+        let seq:SKAction = SKAction.sequence([wait, callAgain])
+        let doAgain:SKAction = SKAction.repeat(seq, count: 30)
         
         
         
+
         
         
         
@@ -117,7 +129,7 @@ class PlayerController: SKSpriteNode {
         }
         let wait:SKAction = SKAction.wait(forDuration: 1/60)
         let seq:SKAction = SKAction.sequence([wait, callAgain])
-        let doAgain:SKAction = SKAction.repeat(seq, count: 40)
+        let doAgain:SKAction = SKAction.repeat(seq, count: 30)
         let stop:SKAction = SKAction.run {
             self.stopUsingUmbrella()
         }
@@ -143,11 +155,9 @@ class PlayerController: SKSpriteNode {
     func jump() {
         
         if (isJumping == false) {
-        
+       
         
         isJumping = true
- //       self.run(jumpAction!)
-        
         
         jumpHeight = maxJumpHeight
             
@@ -159,17 +169,21 @@ class PlayerController: SKSpriteNode {
         let doAgain:SKAction = SKAction.repeat(seq, count: 30)
         let stop:SKAction = SKAction.run {
             self.stopJump()
+            print(self.jumpMultiplier)
         }
         let seq2:SKAction = SKAction.sequence([doAgain, stop])
         self.run(seq2)
             
+            
         }
+   //     isJumping = false
         
     }
     
     func taperJump() {
         
         jumpHeight = jumpHeight*0.9
+        jumpMultiplier = jumpMultiplier-0.26
         
     }
     
