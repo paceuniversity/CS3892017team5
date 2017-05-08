@@ -25,7 +25,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     var cam:SKCameraNode!
     let worldNode: SKNode = SKNode()
-    let bg = SKSpriteNode.init(imageNamed: "Yusan_Background1")
+    let bg = SKSpriteNode.init(imageNamed: "Background_HK")
     let water = SKSpriteNode.init(imageNamed: "Water")
     var npc: ObjectController!
     var dialogue: SKSpriteNode!
@@ -60,6 +60,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var resumeButton = SKSpriteNode.init(color: UIColor.black, size: CGSize.init(width: 350, height: 80))
     var resumeLabel = SKLabelNode(fontNamed: "Chalkduster")
 
+    var mountain: SKSpriteNode!
     
    
 
@@ -72,8 +73,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         backgroundColor = SKColor.darkGray
         anchorPoint = CGPoint.init(x: 0.5, y: 0.5)
-        //Was 60
-        bg.position = CGPoint.init(x: 0, y: 160)
+        //Was 60 was 160
+        bg.position = CGPoint.init(x: 0, y: 245)
         bg.setScale(1.2)
 //        bg.yScale = 1.5
         addChild(bg)
@@ -112,13 +113,44 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         worldNode.addChild(originNode)
         originNode.position = CGPoint.init(x: 0, y: 0)
         
-
+        
+        //Mountain
+        mountain = SKSpriteNode.init(imageNamed: "Mountain")
+        mountain.position = CGPoint.init(x: -3250, y: 60)
+        mountain.zPosition = 0
+        mountain.setScale(0.8)
+        worldNode.addChild(mountain)
+        
+        // Moutain hitbox
+        let mountainHit: SKSpriteNode = SKSpriteNode.init(texture: nil, color: SKColor.clear, size: CGSize.init(width: 400, height: 800))
+        mountainHit.position = CGPoint.init(x: mountain.position.x + 248, y: mountain.position.y - 300)
+        mountainHit.zPosition = 7
+        worldNode.addChild(mountainHit)
+        
+        mountainHit.physicsBody = SKPhysicsBody(rectangleOf: mountainHit.size) //center: CGPoint.init(x: mountainHit.size.width/2, y: mountain.size.height/2))
+        
+        mountainHit.physicsBody!.isDynamic = false
+        mountainHit.physicsBody!.categoryBitMask = BodyType.platform.rawValue
+        //                   objectSprite.physicsBody!.collisionBitMask = 1
+        mountainHit.physicsBody!.restitution = 0
+        
+        let mountainHit2: SKSpriteNode = SKSpriteNode.init(texture: nil, color: SKColor.clear, size: CGSize.init(width: 200, height: 200))
+        mountainHit2.position = CGPoint.init(x: mountain.position.x + 430, y: mountain.position.y - 550)
+        mountainHit2.zPosition = 8
+        worldNode.addChild(mountainHit2)
+        
+        mountainHit2.physicsBody = SKPhysicsBody(rectangleOf: mountainHit2.size) //center: CGPoint.init(x: mountainHit.size.width/2, y: mountain.size.height/2))
+        
+        mountainHit2.physicsBody!.isDynamic = false
+        mountainHit2.physicsBody!.categoryBitMask = BodyType.platform.rawValue
+        //                   objectSprite.physicsBody!.collisionBitMask = 1
+        mountainHit2.physicsBody!.restitution = 0
         
         
         //CHARACTER
         
         playerChar = PlayerController()
-        playerChar.position = CGPoint.init(x: -2850, y: 500)
+        playerChar.position = CGPoint.init(x: -2650, y: 500)
         
         
         //DEAD
@@ -269,7 +301,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //PLATFORM
         
       //  var platformData: [String:String] = ["BodyType": "platform", "Location": "{-300, -550}", "PlaceMultiplesOnX": "1", "Spacing": "0"]
-        var platform2Data: [String:String] = ["BodyType": "platform", "Location": "{-3000, -550}", "PlaceMultiplesOnX": "100", "Spacing": "1"]
+        var platform2Data: [String:String] = ["BodyType": "platform", "Location": "{-3000, -550}", "PlaceMultiplesOnX": "140", "Spacing": "1"]
         
         
       //  let platform = ObjectController(theDict: platformData)
@@ -293,6 +325,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //BUILDINGS
         
+        
+      /*
+        
         var buildingData: [String:String] = ["BodyType": "building", "Location": "{-3375, -400}", "PlaceMultiplesOnX": "3", "Spacing": "0"]
         let building = ObjectController(theDict: buildingData)
         worldNode.addChild(building)
@@ -305,6 +340,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         building2.zPosition = 0
         
         
+    */
         //GROUND
         
   //      var groundData: [String:String] = ["Bodytype": "square", "Location": "{"]
