@@ -259,7 +259,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //STARTINGGROUND
         
-        var startingGroundData: [String:String] = ["BodyType": "ground", "Location": "{-3500, -700}", "PlaceMultiplesOnX": "32", "Spacing": "0"]
+        var startingGroundData: [String:String] = ["BodyType": "ground", "Location": "{-3500, -700}", "PlaceMultiplesOnX": "22", "Spacing": "0"]
         
         var startingGround = ObjectController(theDict: startingGroundData)
         worldNode.addChild(startingGround)
@@ -748,7 +748,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             //print("player is dead")
             
-            playerChar.run(SKAction.applyForce(CGVector.init(dx: -180, dy: 230), duration: 0.5))
+            playerChar.run(SKAction.applyImpulse(CGVector.init(dx: -38, dy: 100), duration: 0.4))
             print("push")
             
             
@@ -757,7 +757,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
            // print("player is dead")
             
-            playerChar.run(SKAction.applyForce(CGVector.init(dx: -180, dy: 230), duration: 0.5))
+            playerChar.run(SKAction.applyImpulse(CGVector.init(dx: -38, dy: 100), duration: 0.4))
             print("push")
 
             
