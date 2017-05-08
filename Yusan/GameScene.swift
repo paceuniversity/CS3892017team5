@@ -748,7 +748,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             //print("player is dead")
             
-            playerChar.run(SKAction.applyForce(CGVector.init(dx: -playerChar.playerSpeedX, dy: -playerChar.playerSpeedY), duration: 0.1))
+            playerChar.run(SKAction.applyForce(CGVector.init(dx: -180, dy: 230), duration: 0.5))
             print("push")
             
             
@@ -757,7 +757,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
            // print("player is dead")
             
-            playerChar.run(SKAction.applyForce(CGVector.init(dx: -400, dy: 120), duration: 0.1))
+            playerChar.run(SKAction.applyForce(CGVector.init(dx: -180, dy: 230), duration: 0.5))
             print("push")
 
             
