@@ -57,7 +57,7 @@ class ObjectController: SKNode {
         for i in stride(from: 0, to: amount, by: 1){
             
             if (randomSpacing == 1) {
-               spacing = CGFloat(arc4random_uniform(2)) + 1
+               spacing = CGFloat(arc4random_uniform(3)) + 1
                 print (spacing)
             }
             
