@@ -35,10 +35,13 @@ class PlayerController: SKSpriteNode {
     
     
     init() {
-        super.init(texture: nil, color: UIColor.black, size: CGSize.init(width: 40, height: 40))
+        let charTexture = SKTexture(imageNamed: "Main_Character")
+        super.init(texture: charTexture, color: UIColor.clear, size: charTexture.size())
+      //  super.setScale(0.05)
+            self.yScale = 0.05
+            self.xScale = 0.05
         
-        
-        var body: SKPhysicsBody = SKPhysicsBody(circleOfRadius: 20)
+        var body: SKPhysicsBody = SKPhysicsBody(rectangleOf: CGSize.init(width: charTexture.size().width*0.05, height: charTexture.size().height*0.05))
         body.isDynamic = true
         body.affectedByGravity = true
         body.allowsRotation = false
@@ -76,9 +79,9 @@ class PlayerController: SKSpriteNode {
         }
         // Flipping the sprite for left/right movement
         if (playerSpeedX > 0) {
-            self.xScale = 1
+            self.xScale = 0.05
         } else {
-            self.xScale = -1
+            self.xScale = -0.05
         }
     }
 
