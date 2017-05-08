@@ -128,7 +128,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" image="Splashscreen_updt" translatesAutoresizingMaskIntoConstraints="NO" id="wDJ-y7-92s">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" image="SpashscreenUpdtChar" translatesAutoresizingMaskIntoConstraints="NO" id="wDJ-y7-92s">
                                 <rect key="frame" x="72" y="139" width="238" height="340"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </imageView>
@@ -159,6 +159,6 @@
         <image name="PlayButton" width="180" height="320"/>
         <image name="SettingsButton" width="180" height="320"/>
         <image name="SocialMediaButton" width="180" height="320"/>
-        <image name="Splashscreen_updt" width="362" height="528"/>
+        <image name="SpashscreenUpdtChar" width="475" height="698"/>
     </resources>
 </document>
