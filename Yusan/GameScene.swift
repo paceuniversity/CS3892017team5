@@ -74,7 +74,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         backgroundColor = SKColor.darkGray
         anchorPoint = CGPoint.init(x: 0.5, y: 0.5)
         //Was 60 was 160
-        bg.position = CGPoint.init(x: 0, y: 245)
+        bg.position = CGPoint.init(x: 1200, y: 245)
         bg.setScale(1.2)
 //        bg.yScale = 1.5
         addChild(bg)
